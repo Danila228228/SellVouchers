@@ -1,0 +1,34 @@
+﻿<Window x:Class="Kurssovay_1.Veiws.ChooseCabinWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kurssovay_1.Veiws"
+        mc:Ignorable="d"
+        Title="Выбор кабины" Height="400" Width="600">
+    <Grid>
+        <DataGrid 
+                  x:Name="CabinsGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер каюты" Width="140" Binding="{Binding id_cabins}"/>
+                <DataGridTextColumn Header="Кол-во свободных мест" Width="230" Binding="{Binding count_places}"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Выбрать эту кабину" 
+                                    Name="BtnChooseCabin"
+                                    Click="BtnChooseCabin_Click" Width="200">
+
+                            </Button>
+
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Window>

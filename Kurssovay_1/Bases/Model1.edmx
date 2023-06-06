@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище SellVouchersModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="id_account" />
+          </Key>
+          <Property Name="id_account" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login_" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="password_" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_account" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cabins">
+          <Key>
+            <PropertyRef Name="id_cabins" />
+            <PropertyRef Name="id_ships" />
+          </Key>
+          <Property Name="id_cabins" Type="int" Nullable="false" />
+          <Property Name="id_ships" Type="int" Nullable="false" />
+          <Property Name="count_places" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id_clients" />
+          </Key>
+          <Property Name="id_clients" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surname_" Type="nvarchar" MaxLength="55" Nullable="false" />
+          <Property Name="name_" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_account" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cruises">
+          <Key>
+            <PropertyRef Name="id_cruises" />
+          </Key>
+          <Property Name="id_cruises" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="route_" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="cost_" Type="int" Nullable="false" />
+          <Property Name="date_start" Type="date" Nullable="false" />
+          <Property Name="date_finish" Type="date" Nullable="false" />
+          <Property Name="id_ships" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ships">
+          <Key>
+            <PropertyRef Name="id_ships" />
+          </Key>
+          <Property Name="id_ships" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_ships" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="places_" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vouchers">
+          <Key>
+            <PropertyRef Name="id_vouchers" />
+          </Key>
+          <Property Name="id_vouchers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_clients" Type="int" Nullable="false" />
+          <Property Name="id_cruises" Type="int" Nullable="false" />
+          <Property Name="id_cabins" Type="int" Nullable="false" />
+          <Property Name="id_ships" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Admins__id_accou__286302EC">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Admins" Type="Self.Admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="id_account" />
+            </Principal>
+            <Dependent Role="Admins">
+              <PropertyRef Name="id_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cabins__id_ships__2E1BDC42">
+          <End Role="Ships" Type="Self.Ships" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cabins" Type="Self.Cabins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ships">
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Cabins">
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clients__id_acco__2B3F6F97">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="id_account" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="id_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cruises__id_ship__30F848ED">
+          <End Role="Ships" Type="Self.Ships" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cruises" Type="Self.Cruises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ships">
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Cruises">
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__35BCFE0A">
+          <End Role="Cabins" Type="Self.Cabins" Multiplicity="1" />
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabins">
+              <PropertyRef Name="id_cabins" />
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_cabins" />
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__id_cli__33D4B598">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_clients" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_clients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__id_cru__34C8D9D1">
+          <End Role="Cruises" Type="Self.Cruises" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cruises">
+              <PropertyRef Name="id_cruises" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_cruises" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище SellVouchersModelContainer">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cabins" EntityType="Self.Cabins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cruises" EntityType="Self.Cruises" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ships" EntityType="Self.Ships" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vouchers" EntityType="Self.Vouchers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Admins__id_accou__286302EC" Association="Self.FK__Admins__id_accou__286302EC">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Admins" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cabins__id_ships__2E1BDC42" Association="Self.FK__Cabins__id_ships__2E1BDC42">
+            <End Role="Ships" EntitySet="Ships" />
+            <End Role="Cabins" EntitySet="Cabins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clients__id_acco__2B3F6F97" Association="Self.FK__Clients__id_acco__2B3F6F97">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cruises__id_ship__30F848ED" Association="Self.FK__Cruises__id_ship__30F848ED">
+            <End Role="Ships" EntitySet="Ships" />
+            <End Role="Cruises" EntitySet="Cruises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__35BCFE0A" Association="Self.FK__Vouchers__35BCFE0A">
+            <End Role="Cabins" EntitySet="Cabins" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__id_cli__33D4B598" Association="Self.FK__Vouchers__id_cli__33D4B598">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__id_cru__34C8D9D1" Association="Self.FK__Vouchers__id_cru__34C8D9D1">
+            <End Role="Cruises" EntitySet="Cruises" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SellVouchersModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="id_account" />
+          </Key>
+          <Property Name="id_account" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Admins" Relationship="Self.FK__Admins__id_accou__286302EC" FromRole="Accounts" ToRole="Admins" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Clients__id_acco__2B3F6F97" FromRole="Accounts" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Admins">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_account" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK__Admins__id_accou__286302EC" FromRole="Admins" ToRole="Accounts" />
+        </EntityType>
+        <EntityType Name="Cabins">
+          <Key>
+            <PropertyRef Name="id_cabins" />
+            <PropertyRef Name="id_ships" />
+          </Key>
+          <Property Name="id_cabins" Type="Int32" Nullable="false" />
+          <Property Name="id_ships" Type="Int32" Nullable="false" />
+          <Property Name="count_places" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ships" Relationship="Self.FK__Cabins__id_ships__2E1BDC42" FromRole="Cabins" ToRole="Ships" />
+          <NavigationProperty Name="Vouchers" Relationship="Self.FK__Vouchers__35BCFE0A" FromRole="Cabins" ToRole="Vouchers" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="id_clients" />
+          </Key>
+          <Property Name="id_clients" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surname_" Type="String" MaxLength="55" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name_" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_account" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Accounts" Relationship="Self.FK__Clients__id_acco__2B3F6F97" FromRole="Clients" ToRole="Accounts" />
+          <NavigationProperty Name="Vouchers" Relationship="Self.FK__Vouchers__id_cli__33D4B598" FromRole="Clients" ToRole="Vouchers" />
+        </EntityType>
+        <EntityType Name="Cruises">
+          <Key>
+            <PropertyRef Name="id_cruises" />
+          </Key>
+          <Property Name="id_cruises" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="route_" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cost_" Type="Int32" Nullable="false" />
+          <Property Name="date_start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="date_finish" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_ships" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ships" Relationship="Self.FK__Cruises__id_ship__30F848ED" FromRole="Cruises" ToRole="Ships" />
+          <NavigationProperty Name="Vouchers" Relationship="Self.FK__Vouchers__id_cru__34C8D9D1" FromRole="Cruises" ToRole="Vouchers" />
+        </EntityType>
+        <EntityType Name="Ships">
+          <Key>
+            <PropertyRef Name="id_ships" />
+          </Key>
+          <Property Name="id_ships" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_ships" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="places_" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cabins" Relationship="Self.FK__Cabins__id_ships__2E1BDC42" FromRole="Ships" ToRole="Cabins" />
+          <NavigationProperty Name="Cruises" Relationship="Self.FK__Cruises__id_ship__30F848ED" FromRole="Ships" ToRole="Cruises" />
+        </EntityType>
+        <EntityType Name="Vouchers">
+          <Key>
+            <PropertyRef Name="id_vouchers" />
+          </Key>
+          <Property Name="id_vouchers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_clients" Type="Int32" Nullable="false" />
+          <Property Name="id_cruises" Type="Int32" Nullable="false" />
+          <Property Name="id_cabins" Type="Int32" Nullable="false" />
+          <Property Name="id_ships" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cabins" Relationship="Self.FK__Vouchers__35BCFE0A" FromRole="Vouchers" ToRole="Cabins" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Vouchers__id_cli__33D4B598" FromRole="Vouchers" ToRole="Clients" />
+          <NavigationProperty Name="Cruises" Relationship="Self.FK__Vouchers__id_cru__34C8D9D1" FromRole="Vouchers" ToRole="Cruises" />
+        </EntityType>
+        <Association Name="FK__Admins__id_accou__286302EC">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Admins" Type="Self.Admins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="id_account" />
+            </Principal>
+            <Dependent Role="Admins">
+              <PropertyRef Name="id_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Clients__id_acco__2B3F6F97">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="id_account" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="id_account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cabins__id_ships__2E1BDC42">
+          <End Role="Ships" Type="Self.Ships" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cabins" Type="Self.Cabins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ships">
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Cabins">
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__35BCFE0A">
+          <End Role="Cabins" Type="Self.Cabins" Multiplicity="1" />
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabins">
+              <PropertyRef Name="id_cabins" />
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_cabins" />
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__id_cli__33D4B598">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="id_clients" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_clients" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cruises__id_ship__30F848ED">
+          <End Role="Ships" Type="Self.Ships" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cruises" Type="Self.Cruises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ships">
+              <PropertyRef Name="id_ships" />
+            </Principal>
+            <Dependent Role="Cruises">
+              <PropertyRef Name="id_ships" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Vouchers__id_cru__34C8D9D1">
+          <End Role="Cruises" Type="Self.Cruises" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vouchers" Type="Self.Vouchers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cruises">
+              <PropertyRef Name="id_cruises" />
+            </Principal>
+            <Dependent Role="Vouchers">
+              <PropertyRef Name="id_cruises" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SellVouchersEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Accounts" />
+          <EntitySet Name="Admins" EntityType="Self.Admins" />
+          <EntitySet Name="Cabins" EntityType="Self.Cabins" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Cruises" EntityType="Self.Cruises" />
+          <EntitySet Name="Ships" EntityType="Self.Ships" />
+          <EntitySet Name="Vouchers" EntityType="Self.Vouchers" />
+          <AssociationSet Name="FK__Admins__id_accou__286302EC" Association="Self.FK__Admins__id_accou__286302EC">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Admins" EntitySet="Admins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Clients__id_acco__2B3F6F97" Association="Self.FK__Clients__id_acco__2B3F6F97">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cabins__id_ships__2E1BDC42" Association="Self.FK__Cabins__id_ships__2E1BDC42">
+            <End Role="Ships" EntitySet="Ships" />
+            <End Role="Cabins" EntitySet="Cabins" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__35BCFE0A" Association="Self.FK__Vouchers__35BCFE0A">
+            <End Role="Cabins" EntitySet="Cabins" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__id_cli__33D4B598" Association="Self.FK__Vouchers__id_cli__33D4B598">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cruises__id_ship__30F848ED" Association="Self.FK__Cruises__id_ship__30F848ED">
+            <End Role="Ships" EntitySet="Ships" />
+            <End Role="Cruises" EntitySet="Cruises" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Vouchers__id_cru__34C8D9D1" Association="Self.FK__Vouchers__id_cru__34C8D9D1">
+            <End Role="Cruises" EntitySet="Cruises" />
+            <End Role="Vouchers" EntitySet="Vouchers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SellVouchersModelContainer" CdmEntityContainer="SellVouchersEntities4">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="SellVouchersModel.Accounts">
+              <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="id_account" ColumnName="id_account" />
+                <ScalarProperty Name="login_" ColumnName="login_" />
+                <ScalarProperty Name="password_" ColumnName="password_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="SellVouchersModel.Admins">
+              <MappingFragment StoreEntitySet="Admins">
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+                <ScalarProperty Name="id_account" ColumnName="id_account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cabins">
+            <EntityTypeMapping TypeName="SellVouchersModel.Cabins">
+              <MappingFragment StoreEntitySet="Cabins">
+                <ScalarProperty Name="id_cabins" ColumnName="id_cabins" />
+                <ScalarProperty Name="id_ships" ColumnName="id_ships" />
+                <ScalarProperty Name="count_places" ColumnName="count_places" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="SellVouchersModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="id_clients" ColumnName="id_clients" />
+                <ScalarProperty Name="surname_" ColumnName="surname_" />
+                <ScalarProperty Name="name_" ColumnName="name_" />
+                <ScalarProperty Name="id_account" ColumnName="id_account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cruises">
+            <EntityTypeMapping TypeName="SellVouchersModel.Cruises">
+              <MappingFragment StoreEntitySet="Cruises">
+                <ScalarProperty Name="id_cruises" ColumnName="id_cruises" />
+                <ScalarProperty Name="route_" ColumnName="route_" />
+                <ScalarProperty Name="cost_" ColumnName="cost_" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="date_finish" ColumnName="date_finish" />
+                <ScalarProperty Name="id_ships" ColumnName="id_ships" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ships">
+            <EntityTypeMapping TypeName="SellVouchersModel.Ships">
+              <MappingFragment StoreEntitySet="Ships">
+                <ScalarProperty Name="id_ships" ColumnName="id_ships" />
+                <ScalarProperty Name="name_ships" ColumnName="name_ships" />
+                <ScalarProperty Name="places_" ColumnName="places_" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="SellVouchersModel.Vouchers">
+              <MappingFragment StoreEntitySet="Vouchers">
+                <ScalarProperty Name="id_vouchers" ColumnName="id_vouchers" />
+                <ScalarProperty Name="id_clients" ColumnName="id_clients" />
+                <ScalarProperty Name="id_cruises" ColumnName="id_cruises" />
+                <ScalarProperty Name="id_cabins" ColumnName="id_cabins" />
+                <ScalarProperty Name="id_ships" ColumnName="id_ships" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

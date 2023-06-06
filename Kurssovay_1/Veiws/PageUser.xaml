@@ -1,0 +1,38 @@
+﻿<Page x:Class="Kurssovay_1.Veiws.PageUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kurssovay_1.Veiws"
+      Loaded="Page_Loaded"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageUser">
+
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <TextBlock  HorizontalAlignment="Stretch" Margin="170,10,0,0" TextWrapping="Wrap" Text="Данные пользователя" VerticalAlignment="Top" Height="91" Width="430" FontSize="24"/>
+        <DataGrid Grid.Row="1" Margin="0,0,0,59.6" Grid.RowSpan="2"
+                  x:Name="VouchersGrid" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер клиента" Width="*" Binding="{Binding id_vouchers}"/>
+                <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding Clients.surname_}"/>
+                <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding Clients.name_}"/>
+                <DataGridTextColumn Header="Маршрут" Width="*" Binding="{Binding Cruises.route_}"/>
+                <DataGridTextColumn Header="Корабль" Width="*" Binding="{Binding ShipName}"/>
+                <DataGridTextColumn Header="Каюта" Width="*" Binding="{Binding id_cabins}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Назад" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="150" Click="Button_Click"/>
+        <Button Content="Отменить поездки" 
+                Grid.Row="2" HorizontalAlignment="Left" Margin="20 0 0 0"
+                                    Name="BtnDelete"
+                                    Click="BtnDelete_Click" Width="170">
+            
+        </Button>
+    </Grid>
+</Page>

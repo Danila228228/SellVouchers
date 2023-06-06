@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c0b35088e2e43c8bac6200a09a980c9" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="SellVouchersModel.Accounts" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Admins" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Cabins" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Clients" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Cruises" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Ships" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellVouchersModel.Vouchers" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <AssociationConnector Association="SellVouchersModel.FK__Admins__id_accou__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Clients__id_acco__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Cabins__id_ships__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Vouchers__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Vouchers__id_cli__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Cruises__id_ship__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="SellVouchersModel.FK__Vouchers__id_cru__34C8D9D1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

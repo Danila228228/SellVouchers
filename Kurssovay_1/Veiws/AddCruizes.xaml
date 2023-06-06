@@ -1,0 +1,40 @@
+﻿<Page x:Class="Kurssovay_1.Veiws.AddCruizes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kurssovay_1.Veiws"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddCruizes">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="57*"/>
+            
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Наименование тура"></TextBlock>
+        <TextBlock Text="Цена" Grid.Row="1"></TextBlock>
+        <TextBlock Text="Дата начала" Grid.Row="2"></TextBlock>
+        <TextBlock Text="Дата завершения" Grid.Row="3"></TextBlock>
+        <TextBlock Text="Номер корабля" Grid.Row="4"></TextBlock>
+
+        <TextBox Text="{Binding route_}" Grid.Column="2" Grid.Row="0"></TextBox>
+        <TextBox Text="{Binding cost_,Mode=TwoWay}" Grid.Column="2" Grid.Row="1"></TextBox>
+        <TextBox Text="{Binding date_start }" Grid.Column="2" Grid.Row="2"></TextBox>
+        <TextBox Text="{Binding date_finish}" Grid.Column="2" Grid.Row="3"></TextBox>
+        <TextBox Text="{Binding id_ships}" Grid.Column="2" Grid.Row="4"></TextBox>
+
+        <Button Content="Сохранить" HorizontalAlignment="Left" Grid.Row="5" Name="BtnSave" Click="BtnSave_Click"></Button>
+        <Button Content="Назад" HorizontalAlignment="Right" Name="BtnBack" Grid.Row="5" Grid.Column="1"  Click="BtnBack_Click"></Button>
+    </Grid>
+</Page>
